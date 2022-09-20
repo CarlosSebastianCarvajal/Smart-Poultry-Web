@@ -1,0 +1,67 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : 03-mar-2022, 16:25:17
+    Author     : IP8
+*/
+
+table.blueTable {
+  border: 0px solid #1C6EA4;
+  background-color: #EEEEEE;
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+table.blueTable td, table.blueTable th {
+  border: 1px solid #AAAAAA;
+  padding: 3px 2px;
+}
+table.blueTable tbody td {
+  font-size: 13px;
+}
+table.blueTable tr:nth-child(even) {
+  background: #FFFFFF;
+}
+table.blueTable thead {
+  background: #5E6670;
+  background: -moz-linear-gradient(top, #868c94 0%, #6e757e 66%, #5E6670 100%);
+  background: -webkit-linear-gradient(top, #868c94 0%, #6e757e 66%, #5E6670 100%);
+  background: linear-gradient(to bottom, #868c94 0%, #6e757e 66%, #5E6670 100%);
+  border-bottom: 2px solid #444444;
+}
+table.blueTable thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-align: center;
+  border-left: 2px solid #D0E4F5;
+}
+table.blueTable thead th:first-child {
+  border-left: none;
+}
+
+table.blueTable tfoot {
+  font-size: 14px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: #D1D2D2;
+  background: -moz-linear-gradient(top, #dcdddd 0%, #d5d6d6 66%, #D1D2D2 100%);
+  background: -webkit-linear-gradient(top, #dcdddd 0%, #d5d6d6 66%, #D1D2D2 100%);
+  background: linear-gradient(to bottom, #dcdddd 0%, #d5d6d6 66%, #D1D2D2 100%);
+  border-top: 2px solid #444444;
+}
+table.blueTable tfoot td {
+  font-size: 14px;
+}
+table.blueTable tfoot .links {
+  text-align: right;
+}
+table.blueTable tfoot .links a{
+  display: inline-block;
+  background: #767571;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
