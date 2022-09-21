@@ -9,15 +9,19 @@ const galponlist = document.querySelector('.post-list');
   extrerGalpones(id, galponlist);
 
   galponlist.addEventListener('click', (e) => {
-    let viewButtonIsPressed = e.target.id == 'viewData';
+    let viewDataButtonIsPressed = e.target.id == 'viewData';
+    let viewHisButtonIsPressed = e.target.id == 'viewHistory';
     
     let idGalpon = e.target.parentElement.dataset.id;
 
     //VIEW REAL-TIME DATA
-    if(viewButtonIsPressed){
+    if(viewDataButtonIsPressed){
       console.log(id);
       sessionStorage.setItem("idGalpon", idGalpon);
       location.href="realtime.html";
     }
+    if(viewHisButtonIsPressed){
+      sessionStorage.setItem("idGalpon", idGalpon);
+      location.href="historial.html";
+    }
   })
-  //console.log(nombre);

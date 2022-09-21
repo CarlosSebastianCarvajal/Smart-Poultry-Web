@@ -29,6 +29,13 @@
 	<link rel="stylesheet" href="resources/css/main.css">
 	<!-- responsive -->
 	<link rel="stylesheet" href="resources/css/responsive.css">
+
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    
+    
+
     </head>
     <body>
 
@@ -141,30 +148,31 @@
             <br/>
             <br/>
             <br/>
-            <h4 style="text-align:center">SOURCING DATA</h4>
-
+            <h4 style="text-align:center">DATA OF SOURCING</h4>
+            <p>Filter by date : <input type="text" id="datepicker">      
+               Filter by type : 
+                <select id="typeSelect" class="select" style="width:150px; height: 35px;"> 
+                    <option value="All" selected>All 
+                    <option value="Food">Food 
+                    <option value="Water">Water 
+                </select> 
+                <a href="#" class="btn btn-secondary" id="search">Search</a>
+            </p>
+            
             <div class="table row">
                 <table class="table">
                     <thead class="thead thead-dark">
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Hora</th>
-                        <th scope="col">Tipo</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Type</th>
                       </tr>
                     </thead>
                     <tbody class="tbody">
                         <!--
                         <tr>
                             <th class="tr-num">1</th>
-                            <td class="tr-nombre">Carlos</td>
-                            <td class="tr-telefono">0968950866</td>
-                            <td class="tr-email">sebas@gmail.com</td>
-                            <td><a href="#" class="card-link">Editar</a></td>
-                            <td><a href="#" class="card-link">Eliminar</a></td>
-                        </tr>
-                        <tr>
-                            <th class="tr-num">2</th>
                             <td class="tr-nombre">Carlos</td>
                             <td class="tr-telefono">0968950866</td>
                             <td class="tr-email">sebas@gmail.com</td>
@@ -214,7 +222,11 @@
         <!-- end copyright -->
 
         <!-- jquery -->
-        <script src="resources/js/jquery-1.11.3.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+        <!--<script src="resources/js/jquery-1.11.3.min.js"></script>-->
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+        
         <!-- bootstrap -->
         <script src="resources/bootstrap/js/bootstrap.min.js"></script>
         <!-- count down -->
@@ -235,6 +247,17 @@
         <script src="resources/js/main.js"></script>
 
         <script src="resources/js/realtime-firebase.js" type="module"></script>
+
+
+        
+
+        <script>
+            $( function() {
+                $("#datepicker").datepicker({
+                    dateFormat: "dd-mm-yy"
+                });
+            } );
+            </script>
 
     </body>
 </html>

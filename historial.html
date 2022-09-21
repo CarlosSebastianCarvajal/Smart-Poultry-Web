@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
-        <title>Principal</title>
+        <title>History Data</title>
         
         <!-- favicon -->
 	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
@@ -29,6 +29,13 @@
 	<link rel="stylesheet" href="resources/css/main.css">
 	<!-- responsive -->
 	<link rel="stylesheet" href="resources/css/responsive.css">
+
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    
+    
+
     </head>
     <body>
 
@@ -113,8 +120,7 @@
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2 text-center">
                         <div class="breadcrumb-text">
-                            <p>Check your productivity</p>
-                            <h1>Shed Management</h1>
+                            <h1>History Data</h1>
                         </div>
                     </div>
                 </div>
@@ -125,19 +131,45 @@
         <br/>
 
         <div class="container">
-            <div class="post-list row">
-                <!--
-                <div class="col-sm-6">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">GALPÓN 1</h5>
-                      <p class="card-text">Galpon pollos pequeños</p>
-                      <a  class="btn btn-primary">View Data</a>
-                    </div>
-                  </div>
-                </div>
-                -->
-              </div>
+            <h4 style="text-align:center">HISTORY DATA</h4>
+            <p>Filter by date : <input type="text" id="datepicker">      
+               Filter by type : 
+                <select id="typeSelect" class="select" style="width:150px; height: 35px;"> 
+                    <option value="All" selected>All 
+                    <option value="Food">Food 
+                    <option value="Water">Water 
+                </select> 
+                <a href="#" class="btn btn-secondary" id="search">Search</a>
+            </p>
+            
+            <div class="table row">
+                <table class="table">
+                    <thead class="thead thead-dark">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Humidity</th>
+                        <th scope="col">Temperature</th>
+                        <th scope="col">Level Water</th>
+                        <th scope="col">Level Food</th>
+                      </tr>
+                    </thead>
+                    <tbody class="tbody">
+                    
+                        <tr>
+                            <th class="tr-num">1</th>
+                            <td class="tr-date">16-09-2022</td>
+                            <td class="tr-time">16:14:23</td>
+                            <td class="tr-humidity">75</td>
+                            <td class="tr-temp">26</td>
+                            <td class="tr-waterl">50%</td>
+                            <td class="tr-foodl">43%</td>
+                        </tr>
+                    
+                    </tbody>
+                  </table>
+            </div>
         </div>
         
 
@@ -177,7 +209,11 @@
         <!-- end copyright -->
 
         <!-- jquery -->
-        <script src="resources/js/jquery-1.11.3.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+        <!--<script src="resources/js/jquery-1.11.3.min.js"></script>-->
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+        
         <!-- bootstrap -->
         <script src="resources/bootstrap/js/bootstrap.min.js"></script>
         <!-- count down -->
@@ -196,8 +232,19 @@
         <script src="resources/js/sticker.js"></script>
         <!-- main js -->
         <script src="resources/js/main.js"></script>
+        <!--
+        <script src="resources/js/historial-firebase.js" type="module"></script>
+        -->
 
-        <script src="resources/js/principal-firebase.js" type="module"></script>
+        
+
+        <script>
+            $( function() {
+                $("#datepicker").datepicker({
+                    dateFormat: "dd-mm-yy"
+                });
+            } );
+            </script>
 
     </body>
 </html>

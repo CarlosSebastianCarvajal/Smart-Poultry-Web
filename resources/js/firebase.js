@@ -115,7 +115,8 @@ export function extrerGalpones  (user, galponlist) {
                       <img src="resources/img/shed.png" width="100" height="80" style="float:left">
                       <p class="card-text" style="float:right;">${dataGalpon.descripcion}</p>
                       <br/><br/>
-                      <a href="#" class="btn btn-primary" id="viewData" style="float:right;">View Data</a>
+                      <a href="#" class="btn btn-primary" id="viewData" style="float:right;">Real Time Data</a>
+                      <a href="#" class="btn btn-secondary" id="viewHistory" style="float:right;">History Data</a>
                     </div>
                   </div>
                 </div>`;
@@ -140,7 +141,8 @@ export function extrerRealTime  (idGalpon, datoslist) {
         <div class="col-sm-6">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">TEMPERATURA</h4>
+                      <h4 class="card-title">TEMPERATURE</h4>
+                      <img src="resources/img/Temperature.png" width="50" height="80" style="float:left">
                       <h4 class="card-text">   ${dataRealTime.Temperatura}°C</h4>
                     </div>
                   </div>
@@ -152,7 +154,8 @@ export function extrerRealTime  (idGalpon, datoslist) {
         <div class="col-sm-6">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">HUMEDAD</h4>
+                      <h4 class="card-title">HUMIDITY</h4>
+                      <img src="resources/img/humidity.png" width="80" height="80" style="float:left">
                       <h4 class="card-text">   ${dataRealTime.Humedad}%</h4>
                     </div>
                   </div>
@@ -164,7 +167,8 @@ export function extrerRealTime  (idGalpon, datoslist) {
         <div class="col-sm-6">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">NIVEL DE COMIDA</h4>
+                      <h4 class="card-title">LEVEL OF FOOD</h4>
+                      <img src="resources/img/level-of-food.png" width="80" height="80" style="float:left">
                       <h4 class="card-text">  ${dataRealTime.nComida}%</h4>
                     </div>
                   </div>
@@ -176,7 +180,8 @@ export function extrerRealTime  (idGalpon, datoslist) {
         <div class="col-sm-6">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">NIVEL DE AGUA</h4>
+                      <h4 class="card-title">LEVEL OF WATER</h4>
+                      <img src="resources/img/level-of-temperature.png" width="80" height="80" style="float:left">
                       <h4 class="card-text">   ${dataRealTime.nAgua}%</h4>
                     </div>
                   </div>
@@ -213,6 +218,93 @@ export function extrerAbastecimiento  (idGalpon, ablist) {
       hora.unshift(dataAb.Hora);
       tipo.unshift(dataAb.Tipo);
       //idx = idx + 1;
+    });
+
+    for(let i = 0; i<fecha.length; i++){
+      output += `
+        <tr>
+          <th class="tr-num">${idx}</th>
+          <td class="tr-fecha">${fecha[i]}</td>
+          <td class="tr-hora">${hora[i]}</td>
+          <td class="tr-tipo">${tipo[i]}</td>
+        </tr>
+      `;
+      idx = idx + 1;
+    }
+    
+    ablist.innerHTML = output;
+  });
+}
+
+
+export function extrerAbastecimientoFechaOption  (idGalpon, ablist, _fecha, option) {
+  const refDis = ref(db, 'Dispositivos/' + idGalpon + '/Datos/Abastecimiento');
+  
+  onValue(refDis, (snapshot) => {
+    let idx = 1;
+    let output = ``;
+    ablist.innerHTML = output;
+    let fecha = [];
+    let hora = [];
+    let tipo = [];
+    snapshot.forEach((abastecimiento) => {
+      //const childKey = childSnapshot.key;
+      const dataAb = abastecimiento.val();
+      if(dataAb.Fecha == _fecha){
+        if(option == "All"){
+          fecha.unshift(dataAb.Fecha);
+          hora.unshift(dataAb.Hora);
+          tipo.unshift(dataAb.Tipo); 
+        }else{
+          if(option == dataAb.Tipo){
+            fecha.unshift(dataAb.Fecha);
+            hora.unshift(dataAb.Hora);
+            tipo.unshift(dataAb.Tipo); 
+          }
+        }
+      }
+    });
+
+    for(let i = 0; i<fecha.length; i++){
+      output += `
+        <tr>
+          <th class="tr-num">${idx}</th>
+          <td class="tr-fecha">${fecha[i]}</td>
+          <td class="tr-hora">${hora[i]}</td>
+          <td class="tr-tipo">${tipo[i]}</td>
+        </tr>
+      `;
+      idx = idx + 1;
+    }
+    
+    ablist.innerHTML = output;
+  });
+}
+
+export function extrerAbastecimientoOption  (idGalpon, ablist, option) {
+  const refDis = ref(db, 'Dispositivos/' + idGalpon + '/Datos/Abastecimiento');
+  
+  onValue(refDis, (snapshot) => {
+    let idx = 1;
+    let output = ``;
+    ablist.innerHTML = output;
+    let fecha = [];
+    let hora = [];
+    let tipo = [];
+    snapshot.forEach((abastecimiento) => {
+      //const childKey = childSnapshot.key;
+      const dataAb = abastecimiento.val();
+      if(option == "All"){
+        fecha.unshift(dataAb.Fecha);
+        hora.unshift(dataAb.Hora);
+        tipo.unshift(dataAb.Tipo); 
+      }else{
+        if(option == dataAb.Tipo){
+          fecha.unshift(dataAb.Fecha);
+          hora.unshift(dataAb.Hora);
+          tipo.unshift(dataAb.Tipo); 
+        }
+      }
     });
 
     for(let i = 0; i<fecha.length; i++){
