@@ -7,7 +7,6 @@ $(document).on('click', '#btnIniciarSesion', function ()
     var passL = $('#txtContrasenia').val();
     console.log(correoL+" - "+passL);
     var validador = validateLogin(correoL, passL);
-    console.log('holis');
     //console.log(validador);
     //location.href=validador;
 

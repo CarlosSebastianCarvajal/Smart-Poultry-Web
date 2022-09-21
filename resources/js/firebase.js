@@ -81,7 +81,7 @@ export function validateLogin  (user, pass) {
       const key = snapshot.key;
       sessionStorage.setItem("nombres", data.nombres); 
       sessionStorage.setItem("apellidos", data.apellidos); 
-      sessionStorage.setItem("id", key);
+      sessionStorage.setItem("idUser", key);
       location.href="principal.html";
       //return 'reportes.html';
     } else {
@@ -98,14 +98,135 @@ export function validateLogin  (user, pass) {
 
 
 
-export function extrerGalpones  (user) {
+export function extrerGalpones  (user, galponlist) {
   const refUser = ref(db, 'Usuarios/' + user + '/galpones');
+  
   onValue(refUser, (snapshot) => {
+    let output = ``;
+    galponlist.innerHTML = output;
     snapshot.forEach((galpon) => {
       //const childKey = childSnapshot.key;
       const dataGalpon = galpon.val();
+      output += `
+        <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-body" data-id=${dataGalpon.idDispositivo}>
+                      <h5 class="card-title">${dataGalpon.nombre}</h5>
+                      <img src="resources/img/shed.png" width="100" height="80" style="float:left">
+                      <p class="card-text" style="float:right;">${dataGalpon.descripcion}</p>
+                      <br/><br/>
+                      <a href="#" class="btn btn-primary" id="viewData" style="float:right;">View Data</a>
+                    </div>
+                  </div>
+                </div>`;
       console.log('NombreGalpon:'+dataGalpon.nombre);
       console.log('Dispositivo:'+dataGalpon.idDispositivo);
+      console.log('Dispositivo:'+dataGalpon.descripcion);
     });
+    galponlist.innerHTML = output;
+  });
+}
+
+export function extrerRealTime  (idGalpon, datoslist) {
+  const refDis = ref(db, 'Dispositivos/' + idGalpon + '/Datos/Tiempo-Real');
+  
+  onValue(refDis, (snapshot) => {
+    var dataRealTime = snapshot.val();
+    let output = ``;
+    datoslist.innerHTML = output;
+    //TEMPERATURA
+    console.log('TEMPERATURA:'+ dataRealTime.Temperatura);
+    output += `
+        <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">TEMPERATURA</h4>
+                      <h4 class="card-text">   ${dataRealTime.Temperatura}°C</h4>
+                    </div>
+                  </div>
+                </div>`;
+
+    //HUMEDAD
+    console.log('HUMEDAD:'+ dataRealTime.Humedad);
+    output += `
+        <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">HUMEDAD</h4>
+                      <h4 class="card-text">   ${dataRealTime.Humedad}%</h4>
+                    </div>
+                  </div>
+                </div>`;
+
+    //NIVEL COMIDA
+    console.log('NIVEL COMIDA:'+ dataRealTime.nComida);
+    output += `
+        <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">NIVEL DE COMIDA</h4>
+                      <h4 class="card-text">  ${dataRealTime.nComida}%</h4>
+                    </div>
+                  </div>
+                </div>`;
+
+    //NIVEL AGUA
+    console.log('NIVEL AGUA:'+ dataRealTime.nAgua);
+    output += `
+        <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">NIVEL DE AGUA</h4>
+                      <h4 class="card-text">   ${dataRealTime.nAgua}%</h4>
+                    </div>
+                  </div>
+                </div>`;
+
+    
+    datoslist.innerHTML = output;
+  });
+}
+
+
+export function extrerAbastecimiento  (idGalpon, ablist) {
+  const refDis = ref(db, 'Dispositivos/' + idGalpon + '/Datos/Abastecimiento');
+  
+  onValue(refDis, (snapshot) => {
+    let idx = 1;
+    let output = ``;
+    ablist.innerHTML = output;
+    let fecha = [];
+    let hora = [];
+    let tipo = [];
+    snapshot.forEach((abastecimiento) => {
+      //const childKey = childSnapshot.key;
+      const dataAb = abastecimiento.val();
+      /*output += `
+        <tr>
+          <th class="tr-num">${idx}</th>
+          <td class="tr-fecha">${dataAb.Fecha}</td>
+          <td class="tr-hora">${dataAb.Hora}</td>
+          <td class="tr-tipo">${dataAb.Tipo}</td>
+        </tr>
+      `;*/
+      fecha.unshift(dataAb.Fecha);
+      hora.unshift(dataAb.Hora);
+      tipo.unshift(dataAb.Tipo);
+      //idx = idx + 1;
+    });
+
+    for(let i = 0; i<fecha.length; i++){
+      output += `
+        <tr>
+          <th class="tr-num">${idx}</th>
+          <td class="tr-fecha">${fecha[i]}</td>
+          <td class="tr-hora">${hora[i]}</td>
+          <td class="tr-tipo">${tipo[i]}</td>
+        </tr>
+      `;
+      idx = idx + 1;
+    }
+    
+    ablist.innerHTML = output;
   });
 }
