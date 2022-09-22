@@ -149,14 +149,15 @@
             <br/>
             <br/>
             <h4 style="text-align:center">DATA OF SOURCING</h4>
-            <p>Filter by date : <input type="text" id="datepicker">      
-               Filter by type : 
+            <p>Start Date : <input type="text" id="dpStart">      
+               End Date : <input type="text" id="dpEnd">      
+               Type : 
                 <select id="typeSelect" class="select" style="width:150px; height: 35px;"> 
                     <option value="All" selected>All 
                     <option value="Food">Food 
                     <option value="Water">Water 
                 </select> 
-                <a href="#" class="btn btn-secondary" id="search">Search</a>
+                <a href="#" class="btn btn-secondary" id="search" style="width:150px;">Filter</a>
             </p>
             
             <div class="table row">
@@ -253,7 +254,10 @@
 
         <script>
             $( function() {
-                $("#datepicker").datepicker({
+                $("#dpStart").datepicker({
+                    dateFormat: "dd-mm-yy"
+                });
+                $("#dpEnd").datepicker({
                     dateFormat: "dd-mm-yy"
                 });
             } );

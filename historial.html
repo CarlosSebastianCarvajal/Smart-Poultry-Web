@@ -132,14 +132,9 @@
 
         <div class="container">
             <h4 style="text-align:center">HISTORY DATA</h4>
-            <p>Filter by date : <input type="text" id="datepicker">      
-               Filter by type : 
-                <select id="typeSelect" class="select" style="width:150px; height: 35px;"> 
-                    <option value="All" selected>All 
-                    <option value="Food">Food 
-                    <option value="Water">Water 
-                </select> 
-                <a href="#" class="btn btn-secondary" id="search">Search</a>
+            <p>Start Date : <input type="text" id="dpStart">      
+               End Date : <input type="text" id="dpEnd">
+                <a href="#" class="btn btn-secondary" id="filter">Filter</a>
             </p>
             
             <div class="table row">
@@ -156,7 +151,7 @@
                       </tr>
                     </thead>
                     <tbody class="tbody">
-                    
+                        <!--
                         <tr>
                             <th class="tr-num">1</th>
                             <td class="tr-date">16-09-2022</td>
@@ -166,7 +161,7 @@
                             <td class="tr-waterl">50%</td>
                             <td class="tr-foodl">43%</td>
                         </tr>
-                    
+                        -->
                     </tbody>
                   </table>
             </div>
@@ -232,15 +227,18 @@
         <script src="resources/js/sticker.js"></script>
         <!-- main js -->
         <script src="resources/js/main.js"></script>
-        <!--
+ 
         <script src="resources/js/historial-firebase.js" type="module"></script>
-        -->
+        
 
         
 
         <script>
             $( function() {
-                $("#datepicker").datepicker({
+                $("#dpStart").datepicker({
+                    dateFormat: "dd-mm-yy"
+                });
+                $("#dpEnd").datepicker({
                     dateFormat: "dd-mm-yy"
                 });
             } );

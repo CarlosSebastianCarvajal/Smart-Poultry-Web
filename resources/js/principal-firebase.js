@@ -20,6 +20,7 @@ const galponlist = document.querySelector('.post-list');
       sessionStorage.setItem("idGalpon", idGalpon);
       location.href="realtime.html";
     }
+    // VIEW HISTORY DATA
     if(viewHisButtonIsPressed){
       sessionStorage.setItem("idGalpon", idGalpon);
       location.href="historial.html";

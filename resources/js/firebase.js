@@ -197,7 +197,6 @@ export function extrerAbastecimiento  (idGalpon, ablist) {
   const refDis = ref(db, 'Dispositivos/' + idGalpon + '/Datos/Abastecimiento');
   
   onValue(refDis, (snapshot) => {
-    let idx = 1;
     let output = ``;
     ablist.innerHTML = output;
     let fecha = [];
@@ -223,13 +222,12 @@ export function extrerAbastecimiento  (idGalpon, ablist) {
     for(let i = 0; i<fecha.length; i++){
       output += `
         <tr>
-          <th class="tr-num">${idx}</th>
+          <th class="tr-num">${i + 1}</th>
           <td class="tr-fecha">${fecha[i]}</td>
           <td class="tr-hora">${hora[i]}</td>
           <td class="tr-tipo">${tipo[i]}</td>
         </tr>
       `;
-      idx = idx + 1;
     }
     
     ablist.innerHTML = output;
@@ -237,11 +235,12 @@ export function extrerAbastecimiento  (idGalpon, ablist) {
 }
 
 
-export function extrerAbastecimientoFechaOption  (idGalpon, ablist, _fecha, option) {
+export function extrerAbastecimientoFechaOption  (idGalpon, ablist,fechaInicial, fechaFinal, option) {
   const refDis = ref(db, 'Dispositivos/' + idGalpon + '/Datos/Abastecimiento');
   
   onValue(refDis, (snapshot) => {
-    let idx = 1;
+    let SD = convertFechaNum(fechaInicial);
+    let ED = convertFechaNum(fechaFinal);
     let output = ``;
     ablist.innerHTML = output;
     let fecha = [];
@@ -250,7 +249,8 @@ export function extrerAbastecimientoFechaOption  (idGalpon, ablist, _fecha, opti
     snapshot.forEach((abastecimiento) => {
       //const childKey = childSnapshot.key;
       const dataAb = abastecimiento.val();
-      if(dataAb.Fecha == _fecha){
+      let RD = convertFechaNum(dataAb.Fecha);
+      if(RD >= SD && RD <= ED){
         if(option == "All"){
           fecha.unshift(dataAb.Fecha);
           hora.unshift(dataAb.Hora);
@@ -268,13 +268,12 @@ export function extrerAbastecimientoFechaOption  (idGalpon, ablist, _fecha, opti
     for(let i = 0; i<fecha.length; i++){
       output += `
         <tr>
-          <th class="tr-num">${idx}</th>
+          <th class="tr-num">${i + 1}</th>
           <td class="tr-fecha">${fecha[i]}</td>
           <td class="tr-hora">${hora[i]}</td>
           <td class="tr-tipo">${tipo[i]}</td>
         </tr>
       `;
-      idx = idx + 1;
     }
     
     ablist.innerHTML = output;
@@ -285,7 +284,6 @@ export function extrerAbastecimientoOption  (idGalpon, ablist, option) {
   const refDis = ref(db, 'Dispositivos/' + idGalpon + '/Datos/Abastecimiento');
   
   onValue(refDis, (snapshot) => {
-    let idx = 1;
     let output = ``;
     ablist.innerHTML = output;
     let fecha = [];
@@ -310,15 +308,108 @@ export function extrerAbastecimientoOption  (idGalpon, ablist, option) {
     for(let i = 0; i<fecha.length; i++){
       output += `
         <tr>
-          <th class="tr-num">${idx}</th>
+          <th class="tr-num">${i + 1}</th>
           <td class="tr-fecha">${fecha[i]}</td>
           <td class="tr-hora">${hora[i]}</td>
           <td class="tr-tipo">${tipo[i]}</td>
         </tr>
       `;
-      idx = idx + 1;
     }
     
     ablist.innerHTML = output;
   });
+}
+
+export function extraerHistory  (idGalpon, hislist) {
+  const refDis = ref(db, 'Dispositivos/' + idGalpon + '/Datos/Registro');
+  
+  onValue(refDis, (snapshot) => {
+    let output = ``;
+    hislist.innerHTML = output;
+    let fecha = [];
+    let hora = [];
+    let humedad = [];
+    let temperatura = [];
+    let nagua = [];
+    let ncomida = [];
+    snapshot.forEach((historial) => {
+      const dataHis = historial.val();
+      fecha.unshift(dataHis.Fecha);
+      hora.unshift(dataHis.Hora);
+      humedad.unshift(dataHis.Humedad);
+      temperatura.unshift(dataHis.Temperatura);
+      nagua.unshift(dataHis.nAgua);
+      ncomida.unshift(dataHis.nComida);
+    });
+
+    for(let i = 0; i<fecha.length; i++){
+      output += `
+        <tr>
+          <th class="tr-num">${i + 1}</th>
+          <td class="tr-fecha">${fecha[i]}</td>
+          <td class="tr-hora">${hora[i]}</td>
+          <td class="tr-humedad">${humedad[i]}</td>
+          <td class="tr-temperatura">${temperatura[i]}</td>
+          <td class="tr-nagua">${nagua[i]}</td>
+          <td class="tr-ncomida">${ncomida[i]}</td>
+        </tr>
+      `;
+    }
+    hislist.innerHTML = output;
+  });
+}
+
+export function extraerHistoryFilter  (idGalpon, hislist, fechaInicial, fechaFinal) {
+  const refDis = ref(db, 'Dispositivos/' + idGalpon + '/Datos/Registro');
+  
+  onValue(refDis, (snapshot) => {
+    let SD = convertFechaNum(fechaInicial);
+    let ED = convertFechaNum(fechaFinal);
+    let output = ``;
+    hislist.innerHTML = output;
+    let fecha = [];
+    let hora = [];
+    let humedad = [];
+    let temperatura = [];
+    let nagua = [];
+    let ncomida = [];
+    snapshot.forEach((historial) => {
+      const dataHis = historial.val();
+      let RD = convertFechaNum(dataHis.Fecha);
+      if(RD >= SD && RD <= ED){
+        fecha.unshift(dataHis.Fecha);
+        hora.unshift(dataHis.Hora);
+        humedad.unshift(dataHis.Humedad);
+        temperatura.unshift(dataHis.Temperatura);
+        nagua.unshift(dataHis.nAgua);
+        ncomida.unshift(dataHis.nComida);
+      }
+      
+    });
+
+    for(let i = 0; i<fecha.length; i++){
+      output += `
+        <tr>
+          <th class="tr-num">${i + 1}</th>
+          <td class="tr-fecha">${fecha[i]}</td>
+          <td class="tr-hora">${hora[i]}</td>
+          <td class="tr-humedad">${humedad[i]}</td>
+          <td class="tr-temperatura">${temperatura[i]}</td>
+          <td class="tr-nagua">${nagua[i]}</td>
+          <td class="tr-ncomida">${ncomida[i]}</td>
+        </tr>
+      `;
+    }
+    hislist.innerHTML = output;
+  });
+  
+}
+
+export function convertFechaNum  (cadenaF) {
+  var anio = cadenaF.substr(6,4);
+  var mes = cadenaF.substr(3,2);
+  var dia = cadenaF.substr(0,2);
+  var DatComp = anio+mes+dia;
+  let numFecha = parseInt(DatComp);
+  return numFecha;
 }
